@@ -71,6 +71,7 @@ execute_until_successful(
     ).click()
 )
 print(f"A desk for {today_date.strftime('%a %b %d %Y')} successfully booked.")
+sl(2)
 
 for i in range(today_date.day, today_date.day + idays):
     today_date: datetime = today_date + timedelta(days=1)
@@ -104,7 +105,7 @@ for i in range(today_date.day, today_date.day + idays):
         ).click()
     )
     sl(2)
-    
+
     execute_until_successful(
         lambda: driver.find_element(
             By.XPATH, "/html/body/div[2]/div/div[2]/span[3]/button"
