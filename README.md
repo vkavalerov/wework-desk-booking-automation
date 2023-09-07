@@ -1,4 +1,4 @@
-# wework-automation
+# wework-desk-booking-automation
 
 ## Usage
 
