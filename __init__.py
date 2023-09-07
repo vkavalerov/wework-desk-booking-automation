@@ -7,8 +7,8 @@ from datetime import datetime, timedelta
 
 config = dotenv_values(".env")
 
-number_of_tries = 15
-sleep_time = 0.5
+number_of_tries = 10
+sleep_time = 1
 time_offset = int(config["TIME_OFFSET"])
 
 
@@ -21,14 +21,23 @@ def execute_until_successful(fn):
         try:
             return fn()
         except Exception:
-            print(_)
             sl(sleep_time)
 
 
 idays = int(config["DAYS"])
 iweekends = str(config["WEEKENDS"])
 
-driver = webdriver.Safari()
+
+match str(config["BROWSER"]):
+    case "chrome":
+        driver = webdriver.Chrome()
+    case "firefox":
+        driver = webdriver.Firefox()
+    case "safari":  
+        driver = webdriver.Safari()
+    case _:
+        driver = webdriver.Chrome()
+        
 driver.get("https://members.wework.com")
 execute_until_successful(
     lambda: (
