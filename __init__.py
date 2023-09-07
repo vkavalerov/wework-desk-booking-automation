@@ -28,7 +28,7 @@ idays = int(config["DAYS"])
 iweekends = str(config["WEEKENDS"])
 
 
-match str(config["BROWSER"]):
+match str(config["BROWSER"]).lower():
     case "chrome":
         driver = webdriver.Chrome()
     case "firefox":
@@ -37,7 +37,7 @@ match str(config["BROWSER"]):
         driver = webdriver.Safari()
     case _:
         driver = webdriver.Chrome()
-        
+
 driver.get("https://members.wework.com")
 execute_until_successful(
     lambda: (
