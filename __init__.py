@@ -13,6 +13,7 @@ iweekends = str(config["WEEKENDS"])
 idays = int(config["DAYS"])
 office_id = str(config["OFFICE_ID"])
 
+
 def sleep_with_offset(t):
     time.sleep(t + time_offset)
 
@@ -24,17 +25,19 @@ def execute_until_successful(fn):
         except Exception:
             sleep_with_offset(sleep_time)
 
+
 def get_driver():
     match str(config["BROWSER"]).lower():
         case "chrome":
             driver = webdriver.Chrome()
         case "firefox":
             driver = webdriver.Firefox()
-        case "safari":  
+        case "safari":
             driver = webdriver.Safari()
         case _:
             driver = webdriver.Chrome()
     return driver
+
 
 def book_desks():
     driver = get_driver()
@@ -103,7 +106,8 @@ def book_desks():
                 "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]/div/div/div/div/div[2]/div/div[3]",
             )
             .find_element(
-                By.CSS_SELECTOR, f"div[aria-label='{today_date.strftime('%a %b %d %Y')}']"
+                By.CSS_SELECTOR,
+                f"div[aria-label='{today_date.strftime('%a %b %d %Y')}']",
             )
             .click()
         )
@@ -129,6 +133,7 @@ def book_desks():
         "with" if iweekends.lower() == "true" else "without" " weekends.",
     )
     driver.close()
+
 
 if __name__ == "__main__":
     book_desks()
