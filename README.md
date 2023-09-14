@@ -13,6 +13,16 @@
 3. Install dependencies: `poetry install`.
 4. Run the script: `poetry run python3 __init__.py`.
 
+### ✨Tip✨
+
+If you want to start automation from any directory in your terminal, you can do it by running this command:
+
+```bash
+cd {{directory}} && poetry run python3 __init__.py
+```
+
+As you can see this command contains one variable - `{{directory}}`. `{{directory}}` is the path to the directory where the wework-desk-booking-automation repo is located on your machine. And if you want to execute this command from any directory, please start your `{{directory}}` with `/` or `~`. If you have a GitHub folder with all the repos in your Users Documents folder, then the `{{directory}}` should look like `~/Documents/Github/wework-desk-booking-automation`.
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
