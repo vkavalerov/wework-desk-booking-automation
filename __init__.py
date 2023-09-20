@@ -111,6 +111,7 @@ def book_desks():
             )
             .click()
         )
+        sleep_with_offset(1)
 
         execute_until_successful(
             lambda: driver.find_element(
