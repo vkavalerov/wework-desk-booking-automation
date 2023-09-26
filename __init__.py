@@ -69,6 +69,7 @@ def book_desks():
     )
     sleep_with_offset(10)
     driver = get_driver()
+    driver.set_window_size(600, 800)
 
     # Login
     driver.get("https://members.wework.com")
