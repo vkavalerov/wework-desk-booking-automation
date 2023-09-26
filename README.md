@@ -16,9 +16,9 @@ If the booking process fails, try to increase the TIME_OFFSET value in .env file
    - `DAYS`: `Integer`, This variable is for how many days you want to book a desk. The default value is **7**.
    - `WEEKENDS`: `Boolean`, Do you want to book a desk for weekends? The default value is **False**.
    - `BROWSER`: `String`, Which browser do you want to use? The default value is `Safari`. You can use `Chrome`, `Firefox`, or `Safari`.
-   Please set all of these parameters into your `.env` file.
+     Please set all of these parameters into your `.env` file.
 3. Also, you need to Allow Remote Automation in Safari. You can do it by clicking on Develop in the menu bar and then clicking on Allow Remote Automation(3rd from the bottom of the list).
-4. Install `poetry`, installation guide - https://python-poetry.org/docs/#installation.
+4. Install `poetry`, installation guide - <https://python-poetry.org/docs/#installation>.
 5. Install dependencies with `poetry`: `poetry install`.
 6. Run the script(You should do it in repo directory om your local machine): `poetry run python3 __init__.py`.
 
