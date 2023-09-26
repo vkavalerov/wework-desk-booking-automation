@@ -14,8 +14,11 @@ booking_days_range = int(config["DAYS"])
 office_id = str(config["OFFICE_ID"])
 
 
-def sleep_with_offset(t):
-    time.sleep(t + time_offset)
+def sleep_with_offset(t: int):
+    sleep_time = t + time_offset
+    if sleep_time <= 0:
+        return
+    time.sleep(sleep_time)
 
 
 def execute_until_successful(fn):
