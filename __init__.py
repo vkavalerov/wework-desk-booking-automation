@@ -45,7 +45,7 @@ def get_driver():
 def book_desks():
     print(
         "\n----------------------------------------------------------------------------------------------------------\n"
-        "THIS IS A VERY EARLY VERSION OF THE SCRIPT. IT MAY NOT WORK PROPERLY ON SOME MACHINES. IT CAN SPEND YOUR WEWORK CREDITS. USE IT AT YOUR OWN RISK. READ THIS NOTE VERY CAREFULLY!\n"
+        "THIS IS A VERY EARLY VERSION OF THE SCRIPT. IT MAY NOT WORK PROPERLY ON SOME MACHINES. IT CAN SPEND YOUR WEWORK CREDITS. IT CAN CLOSE ALL YOUR BROWSER WINDOWS AND TABS. USE IT AT YOUR OWN RISK. READ THIS NOTE VERY CAREFULLY!\n"
         "----------------------------------------------------------------------------------------------------------\n\n"
         "!!If the booking process fails, try to increase the TIME_OFFSET value in .env file!!\n\n"
         "It will not(!) check if you already booked a desk. It will sent booking"
