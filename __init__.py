@@ -35,10 +35,7 @@ def get_driver():
         case "safari":
             driver = webdriver.Safari()
         case _:
-            chrome_options = webdriver.ChromeOptions()
-            prefs = {"profile.managed_default_content_settings.images": 2}
-            chrome_options.add_experimental_option("prefs", prefs)
-            driver = webdriver.Chrome(options=chrome_options)
+            driver = webdriver.Chrome()
     return driver
 
 
