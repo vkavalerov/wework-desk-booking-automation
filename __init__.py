@@ -139,8 +139,13 @@ def book_desks():
 
         # Check if we are still in the same month
         if today_date.month != current_month:
-            print("For now we can't book a desk for next month, sorry. This feature is now in development.")
-            break
+            execute_until_successful(
+                lambda: driver.find_element(
+                    By.XPATH,
+                    "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]/div/div/div/div/div[1]/span[2]"
+                ).click()
+            )
+            sleep_with_offset(1)
 
         # Select next date in calendar
         # TODO: Go to next month if it is the end of current month
