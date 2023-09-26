@@ -6,7 +6,7 @@
    Besides the email and password from your WeWork account in the `.env.default` file, you will also find:
    - `OFFICE_ID`: `String(UUID)`, This is the ID of the office where want to book a desk. The default value is UUID for **North West House in Marylebone, London**.
    - `TIME_OFFSET`: `Integer`, This variable is for offsetting all actions on the web page. It is useful if you have a slow internet connection. The default value is **0**.
-   - `DAYS`: `Integer`, This variable is for how many days you want to book a desk. The default value is **1**.
+   - `DAYS`: `Integer`, This variable is for how many days you want to book a desk. The default value is **7**.
    - `WEEKENDS`: `Boolean`, Do you want to book a desk for weekends? The default value is **False**.
    - `BROWSER`: `String`, Which browser do you want to use? The default value is `Safari`. You can use `Chrome`, `Firefox`, or `Safari`.
 2. Also, you need to Allow Remote Automation in Safari. You can do it by clicking on Develop in the menu bar and then clicking on Allow Remote Automation(3rd from the bottom of the list).
