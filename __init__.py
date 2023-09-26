@@ -64,7 +64,7 @@ def book_desks():
         "It will not(!) check if you already booked a desk. It will sent booking"
         "request any way,\nso if you already booked a desk especially(!) in other wework(location) "
         "it then can cost you wework credits, so please be careful!\n\n"
-        "If you have spotted some bug or if you have any suggestions, feel free to create issues on Github or contact me on vladimir@kavalerov.net.\n\n"
+        "If you have spotted some bug or if you have any suggestions, feel free to create issues on Github repo or contact me on vladimir@kavalerov.net.\n\n"
         f"{str(config['BROWSER'])} is starting.\n\n"
     )
     sleep_with_offset(10)
