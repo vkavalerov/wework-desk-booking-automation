@@ -99,6 +99,7 @@ def book_desks():
         .get_attribute("aria-label"),
         "%a %b %d %Y",
     )
+    current_month = today_date.month
 
     # Book a table for today
     execute_until_successful(
@@ -133,6 +134,11 @@ def book_desks():
             ).click()
         )
         sleep_with_offset(0)
+
+        # Check if we are still in the same month
+        if today_date.month != current_month:
+            print("For now we can't book a desk for next month, sorry. This feature is now in development.")
+            break
 
         # Select next date in calendar
         # TODO: Go to next month if it is the end of current month
