@@ -41,19 +41,6 @@ def get_driver():
             driver = webdriver.Chrome(options=chrome_options)
     return driver
 
-def book_desk_by_office_id(driver, office_id : str):
-    execute_until_successful(
-        lambda: driver.find_element(
-            By.XPATH, f"//*[@id='{office_id}']/section/button"
-        ).click()
-    )
-    sleep_with_offset(2)
-    execute_until_successful(
-        lambda: driver.find_element(
-            By.XPATH, "/html/body/div[2]/div/div[2]/span[3]/button"
-        ).click()
-    )
-
 
 def book_desks():
     print(
