@@ -102,7 +102,9 @@ def book_desks():
             By.XPATH, "/html/body/div[2]/div/div[2]/span[3]/button"
         ).click()
     )
-    print(f"An attempt to make booking for {today_date.strftime('%a %b %d %Y')} has been made.")
+    print(
+        f"An attempt to make booking for {today_date.strftime('%a %b %d %Y')} has been made."
+    )
     sleep_with_offset(2)
 
     for _ in range(today_date.day, today_date.day + booking_days_range):
@@ -122,17 +124,17 @@ def book_desks():
                 "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div",
             ).click()
         )
-        sleep_with_offset(0)
+        sleep_with_offset(0.5)
 
         # Check if we are still in the same month
         if today_date.month != current_month:
             execute_until_successful(
                 lambda: driver.find_element(
                     By.XPATH,
-                    "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]/div/div/div/div/div[1]/span[2]"
+                    "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]/div/div/div/div/div[1]/span[2]",
                 ).click()
             )
-            sleep_with_offset(1)
+            sleep_with_offset(0.5)
 
         # Select next date in calendar
         # TODO: Go to next month if it is the end of current month
@@ -161,7 +163,9 @@ def book_desks():
                 By.XPATH, "/html/body/div[2]/div/div[2]/span[3]/button"
             ).click()
         )
-        print(f"An attempt to make booking for {today_date.strftime('%a %b %d %Y')} has been made.")
+        print(
+            f"An attempt to make booking for {today_date.strftime('%a %b %d %Y')} has been made."
+        )
         sleep_with_offset(2)
 
     sleep_with_offset(3)
