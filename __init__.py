@@ -137,7 +137,6 @@ def book_desks():
             sleep_with_offset(0.5)
 
         # Select next date in calendar
-        # TODO: Go to next month if it is the end of current month
         execute_until_successful(
             lambda: driver.find_element(
                 By.XPATH,
