@@ -61,9 +61,9 @@ def book_desks():
         "THIS IS A VERY EARLY VERSION OF THE SCRIPT, IT MAY NOT WORK ON SOME MACHINES, READ THIS NOTE CAREFULLY!\n"
         "----------------------------------------------------------------------------------------------------------\n\n"
         "!!If the booking process fails, try to increase the TIME_OFFSET value in .env file!!\n\n"
-        "It will not(!) check if you already booked a desk. It will sent booking\n"
-        "request any way, so if you already booked a desk especially(!) in other wework(location)\n"
-        "it then can cost you wework credits, so plecase be careful!\n\n"
+        "It will not(!) check if you already booked a desk. It will sent booking"
+        "request any way,\nso if you already booked a desk especially(!) in other wework(location) "
+        "it then can cost you wework credits, so please be careful!\n\n"
         "If you have spotted some bug or if you have any suggestions, feel free to create issues on Github or contact me on vladimir@kavalerov.net.\n\n"
         f"{str(config['BROWSER'])} is starting.\n\n"
     )
