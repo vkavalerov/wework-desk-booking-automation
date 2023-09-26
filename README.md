@@ -1,5 +1,11 @@
 # wework-desk-booking-automation
 
+## Disclaimer
+
+This is a very early version of the script. It may not work properly on some machines. It can spend your Wework credits. Use it at your own risk.
+
+If the booking process fails, try to increase the TIME_OFFSET value in .env file. It will not(!) check if you already booked a desk. It will sent booking request any way, so if you already booked a desk especially(!) in other wework(location) it then can cost you wework credits, so please be careful! If you have spotted some bug or if you have any suggestions, feel free to create issues on Github repo or contact me on <vladimir@kavalerov.net>.
+
 ## Usage
 
 1. First of all, you need to clone this repo on your local machine.
