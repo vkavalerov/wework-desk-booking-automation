@@ -67,7 +67,7 @@ def book_desks():
         "If you have spotted some bug or if you have any suggestions, feel free to create issues on Github repo or contact me on vladimir@kavalerov.net.\n\n"
         f"{str(config['BROWSER'])} is starting.\n\n"
     )
-    sleep_with_offset(10)
+    sleep_with_offset(5)
     driver = get_driver()
     driver.set_window_size(600, 800)
 
