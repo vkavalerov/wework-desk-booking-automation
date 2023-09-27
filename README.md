@@ -4,7 +4,7 @@
 
 This is a very early version of the script. It may not work properly on some machines. It can spend your Wework credits. It can close all your browser windows and tabs. Use it at your own risk.
 
-If the booking process fails, try to increase the TIME_OFFSET value in .env file. It will not(!) check if you already booked a desk. It will sent booking request any way, so if you already booked a desk especially(!) in other wework(location) it then can cost you wework credits, so please be careful!
+If the booking process fails, try to increase the `TIME_OFFSET` value in `.env` file. It will not(!) check if you already booked a desk. It will sent booking request any way, so if you already booked a desk especially(!) in other wework(location) it then can cost you wework credits, so please be careful!
 
 ## Usage
 
