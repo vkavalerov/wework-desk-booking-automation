@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "wework-automation"
-version = "0.1.0"
+name = "wework-desk-booking-automation"
+version = "1.0.0"
 description = ""
 authors = ["Vladimir Kavalerov <vladimir@kavalerov.net>"]
 readme = "README.md"
