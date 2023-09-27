@@ -13,6 +13,15 @@ include_weekends = str(config["WEEKENDS"])
 booking_days_range = int(config["DAYS"])
 office_id = str(config["OFFICE_ID"])
 
+def obtain_credentials(config: dict) -> tuple[list[str], list[str]]:
+    raw_email = str(config["EMAIL"])
+    if raw_email.find(",") != -1:
+        email_list = raw_email.split(",")
+        password_list = str(config["PASSWORD"]).split(",")
+    else:
+        email_list = [raw_email]
+        password_list = [config["PASSWORD"]]
+    return email_list, password_list
 
 def sleep_with_offset(t: int):
     sleep_time = t + time_offset
@@ -43,112 +52,54 @@ def get_driver():
 
 
 def book_desks():
-    print(
-        "\n----------------------------------------------------------------------------------------------------------\n"
-        "THIS IS A VERY EARLY VERSION OF THE SCRIPT. IT MAY NOT WORK PROPERLY ON SOME MACHINES. IT CAN SPEND YOUR WEWORK CREDITS. IT CAN CLOSE ALL YOUR BROWSER WINDOWS AND TABS. USE IT AT YOUR OWN RISK. READ THIS NOTE VERY CAREFULLY!\n"
-        "----------------------------------------------------------------------------------------------------------\n\n"
-        "!!If the booking process fails, try to increase the TIME_OFFSET value in .env file!!\n\n"
-        "It will not(!) check if you already booked a desk. It will sent booking"
-        "request any way,\nso if you already booked a desk especially(!) in other wework(location) "
-        "it then can cost you wework credits, so please be careful!\n\n"
-        "If you have spotted some bug or if you have any suggestions, feel free to create Github issues or pull requests.\n\n"
-        f"{str(config['BROWSER'])} is starting.\n\n"
-    )
-    sleep_with_offset(5)
-    driver = get_driver()
-    driver.set_window_size(600, 800)
-    driver.set_window_position(0, 0)
-
-    # Login
-    driver.get("https://members.wework.com")
-    execute_until_successful(
-        lambda: (
-            driver.find_element(By.ID, "1-email").send_keys(config["EMAIL"]),
-            driver.find_element(By.ID, "1-password").send_keys(config["PASSWORD"]),
-            driver.find_element(By.ID, "1-submit").click(),
+    email_list, password_list = obtain_credentials(config)
+    for email, password in zip(email_list, password_list):
+        print(
+            "\n----------------------------------------------------------------------------------------------------------\n"
+            "THIS IS A VERY EARLY VERSION OF THE SCRIPT. IT MAY NOT WORK PROPERLY ON SOME MACHINES. IT CAN SPEND YOUR WEWORK CREDITS. IT CAN CLOSE ALL YOUR BROWSER WINDOWS AND TABS. USE IT AT YOUR OWN RISK. READ THIS NOTE VERY CAREFULLY!\n"
+            "----------------------------------------------------------------------------------------------------------\n\n"
+            "!!If the booking process fails, try to increase the TIME_OFFSET value in .env file!!\n\n"
+            "It will not(!) check if you already booked a desk. It will sent booking"
+            "request any way,\nso if you already booked a desk especially(!) in other wework(location) "
+            "it then can cost you wework credits, so please be careful!\n\n"
+            "If you have spotted some bug or if you have any suggestions, feel free to create Github issues or pull requests.\n\n"
+            f"{str(config['BROWSER'])} is starting.\n\n"
         )
-    )
-    sleep_with_offset(2)
-
-    driver.get("https://members.wework.com/desks")
-    sleep_with_offset(5)
-
-    # Fetch today's date
-    driver.find_element(
-        By.XPATH,
-        "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div",
-    ).click()
-    sleep_with_offset(2)
-    today_date = datetime.strptime(
-        driver.find_element(
-            By.XPATH,
-            "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]/div/div/div/div/div[2]/div/div[3]",
+        sleep_with_offset(5)
+        driver = get_driver()
+        driver.set_window_size(600, 800)
+        driver.set_window_position(0, 0)
+        
+        # Login
+        driver.get("https://members.wework.com")
+        execute_until_successful(
+            lambda: (
+                driver.find_element(By.ID, "1-email").send_keys(email),
+                driver.find_element(By.ID, "1-password").send_keys(password),
+                driver.find_element(By.ID, "1-submit").click(),
+            )
         )
-        .find_element(By.CSS_SELECTOR, "div[aria-selected='true']")
-        .get_attribute("aria-label"),
-        "%a %b %d %Y",
-    )
-    current_month = today_date.month
-
-    # Book a table for today
-    execute_until_successful(
-        lambda: driver.find_element(
-            By.XPATH, f"//*[@id='{office_id}']/section/button"
-        ).click()
-    )
-    sleep_with_offset(2)
-    execute_until_successful(
-        lambda: driver.find_element(
-            By.XPATH, "/html/body/div[2]/div/div[2]/span[3]/button"
-        ).click()
-    )
-    print(
-        f"An attempt to make booking for {today_date.strftime('%a %b %d %Y')} has been made."
-    )
-    sleep_with_offset(2)
-
-    for _ in range(today_date.day, today_date.day + booking_days_range):
-        today_date: datetime = today_date + timedelta(days=1)
-
-        # Skip weekends if WEEKENDS in .env is set to false
-        if include_weekends.lower() == "false" and today_date.weekday() >= 5:
-            continue
+        sleep_with_offset(2)
 
         driver.get("https://members.wework.com/desks")
         sleep_with_offset(5)
 
-        # Open date selector
-        execute_until_successful(
-            lambda: driver.find_element(
-                By.XPATH,
-                "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div",
-            ).click()
-        )
-        sleep_with_offset(0.5)
-
-        # Check if we are still in the same month
-        if today_date.month != current_month:
-            execute_until_successful(
-                lambda: driver.find_element(
-                    By.XPATH,
-                    "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]/div/div/div/div/div[1]/span[2]",
-                ).click()
-            )
-            sleep_with_offset(0.5)
-
-        # Select next date in calendar
-        execute_until_successful(
-            lambda: driver.find_element(
+        # Fetch today's date
+        driver.find_element(
+            By.XPATH,
+            "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div",
+        ).click()
+        sleep_with_offset(2)
+        today_date = datetime.strptime(
+            driver.find_element(
                 By.XPATH,
                 "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]/div/div/div/div/div[2]/div/div[3]",
             )
-            .find_element(
-                By.CSS_SELECTOR,
-                f"div[aria-label='{today_date.strftime('%a %b %d %Y')}']",
-            )
-            .click()
+            .find_element(By.CSS_SELECTOR, "div[aria-selected='true']")
+            .get_attribute("aria-label"),
+            "%a %b %d %Y",
         )
-        sleep_with_offset(1)
+        current_month = today_date.month
 
         # Book a table for today
         execute_until_successful(
@@ -167,13 +118,73 @@ def book_desks():
         )
         sleep_with_offset(2)
 
-    sleep_with_offset(3)
-    print(
-        "The booking process is finished, but there is no confirmation if the booking process went successfully.\n"
-        f"Your request was to book a desk for {booking_days_range} day(s)",
-        "including" if include_weekends.lower() == "true" else "without" " weekends.",
-    )
-    driver.close()
+        for _ in range(today_date.day, today_date.day + booking_days_range):
+            today_date: datetime = today_date + timedelta(days=1)
+
+            # Skip weekends if WEEKENDS in .env is set to false
+            if include_weekends.lower() == "false" and today_date.weekday() >= 5:
+                continue
+
+            driver.get("https://members.wework.com/desks")
+            sleep_with_offset(5)
+
+            # Open date selector
+            execute_until_successful(
+                lambda: driver.find_element(
+                    By.XPATH,
+                    "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div",
+                ).click()
+            )
+            sleep_with_offset(0.5)
+
+            # Check if we are still in the same month
+            if today_date.month != current_month:
+                execute_until_successful(
+                    lambda: driver.find_element(
+                        By.XPATH,
+                        "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]/div/div/div/div/div[1]/span[2]",
+                    ).click()
+                )
+                sleep_with_offset(0.5)
+
+            # Select next date in calendar
+            execute_until_successful(
+                lambda: driver.find_element(
+                    By.XPATH,
+                    "//*[@id='root']/div/div/div/div[3]/div[2]/div/div[1]/div/div[1]/div/div/div/div[1]/div/div/div/div/div[2]/div/div[3]",
+                )
+                .find_element(
+                    By.CSS_SELECTOR,
+                    f"div[aria-label='{today_date.strftime('%a %b %d %Y')}']",
+                )
+                .click()
+            )
+            sleep_with_offset(1)
+
+            # Book a table for today
+            execute_until_successful(
+                lambda: driver.find_element(
+                    By.XPATH, f"//*[@id='{office_id}']/section/button"
+                ).click()
+            )
+            sleep_with_offset(2)
+            execute_until_successful(
+                lambda: driver.find_element(
+                    By.XPATH, "/html/body/div[2]/div/div[2]/span[3]/button"
+                ).click()
+            )
+            print(
+                f"An attempt to make booking for {today_date.strftime('%a %b %d %Y')} has been made."
+            )
+            sleep_with_offset(2)
+
+        sleep_with_offset(3)
+        print(
+            "The booking process is finished, but there is no confirmation if the booking process went successfully.\n"
+            f"Your request was to book a desk for {booking_days_range} day(s)",
+            "including" if include_weekends.lower() == "true" else "without" " weekends.",
+        )
+        driver.close()
 
 
 if __name__ == "__main__":
